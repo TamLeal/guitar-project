@@ -258,45 +258,55 @@ const GuitarChordVisualizer = () => {
   };
 
   return (
-    <div className="p-4 max-w-5xl mx-auto">
-      <h1 className="text-2xl font-bold mb-4">Visualizador de Acordes de Violão</h1>
-      <div className="mb-4 border-t border-l border-gray-300 overflow-x-auto">
-        {renderFretboard()}
-      </div>
-      <div className="flex">
-        <div className="w-1/2 pr-4">
+    <div style={{ maxWidth: '900px', margin: '0 auto', fontFamily: 'Arial, sans-serif' }}>
+      <h1 style={{ textAlign: 'center', fontSize: '24px', marginBottom: '20px' }}>Visualizador de Acordes de Violão</h1>
+      <div style={{ marginBottom: '20px' }}>{renderFretboard()}</div>
+      
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        {/* Lado esquerdo - Grupos de acordes */}
+        <div style={{ width: '48%' }}>
           {Object.entries(chordGroups).map(([groupName, groupChords]) => (
-            <div key={groupName} className="mb-4">
-              <h2 className="text-xl font-semibold mb-2">{groupName}</h2>
-              <div className="flex flex-wrap">
+            <div key={groupName} style={{ marginBottom: '20px' }}>
+              <h2 style={{ fontSize: '18px', marginBottom: '10px' }}>{groupName}</h2>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '10px' }}>
                 {groupChords.map(chord => (
-                  <label key={chord} className="inline-flex items-center mr-4 mb-2">
+                  <label key={chord} style={{ display: 'flex', alignItems: 'center' }}>
                     <input
                       type="radio"
-                      className="form-radio h-5 w-5 text-blue-600"
                       checked={selectedChord === chord}
                       onChange={() => setSelectedChord(chord)}
+                      style={{ marginRight: '5px' }}
                     />
-                    <span className="ml-2 text-lg">{chord}</span>
+                    {chord}
                   </label>
                 ))}
               </div>
             </div>
           ))}
         </div>
-        <div className="w-px bg-gray-300 mx-4"></div>
-        <div className="w-1/2 pl-4 flex items-center justify-center">
-          <div className="text-center">
-            <h2 className="text-2xl font-bold mb-2">Acorde Selecionado</h2>
-            <p className="text-4xl font-semibold">{selectedChord}</p>
-            <p className="text-xl mt-2">{chordNames[selectedChord]}</p>
-            <button 
-              onClick={playChord}
-              className="mt-4 bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
-            >
-              Tocar Acorde
-            </button>
-          </div>
+
+        {/* Linha divisória central */}
+        <div style={{ width: '1px', backgroundColor: '#ccc', margin: '0 20px' }}></div>
+
+        {/* Lado direito - Acorde selecionado e botão de tocar */}
+        <div style={{ width: '48%', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center' }}>
+          <h2 style={{ fontSize: '20px', marginBottom: '10px' }}>Acorde Selecionado</h2>
+          <p style={{ fontSize: '36px', fontWeight: 'bold', marginBottom: '10px' }}>{selectedChord}</p>
+          <p style={{ fontSize: '18px', marginBottom: '20px' }}>{chordNames[selectedChord]}</p>
+          <button 
+            onClick={playChord}
+            style={{
+              padding: '10px 20px',
+              fontSize: '16px',
+              backgroundColor: '#4CAF50',
+              color: 'white',
+              border: 'none',
+              borderRadius: '5px',
+              cursor: 'pointer'
+            }}
+          >
+            Tocar Acorde
+          </button>
         </div>
       </div>
     </div>
